@@ -2,7 +2,7 @@
   "name": "twentytwenty-child",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "gulpfile.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -17,17 +17,11 @@
   },
   "homepage": "https://github.com/MathyEM/onlineplus-test#readme",
   "devDependencies": {
-    "autoprefixer": "^10.0.2",
     "browser-sync": "^2.26.13",
     "gulp": "^4.0.2",
-    "gulp-group-css-media-queries": "^1.2.2",
-    "gulp-plumber": "^1.2.1",
-    "gulp-postcss": "^9.0.0",
-    "gulp-sass": "^4.1.0",
-    "gulp-sass-lint": "^1.4.0",
-    "postcss": "^8.1.10"
+    "gulp-sass": "^4.1.0"
   },
   "dependencies": {
-    "gulp-sourcemaps": "^3.0.0"
+    "bootstrap": "^4.5.3"
   }
 }
