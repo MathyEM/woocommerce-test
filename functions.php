@@ -28,7 +28,7 @@ function create_posttype() {
             'show_in_nav_menus' => true,
             'rewrite' => array('slug' => 'employees'),
             'supports' => array('title', 'thumbnail', 'custom-fields'),
-            'texonomies' => array('departments'),
+            'taxonomies' => array('departments'),
  
         )
     );
@@ -51,10 +51,11 @@ function create_departments_taxonomy() {
   register_taxonomy('departments','employees',array(
     'hierarchical' => false,
     'labels' => $labels,
+    'publicly_queryable' => true,
+    'query_var' => true,
     'show_ui' => true,
     'show_admin_column' => true,
     'update_count_callback' => '_update_post_term_count',
-    'query_var' => true,
-    'rewrite' => array( 'slug' => 'department' ),
+    'rewrite' => array( 'slug' => 'departments' ),
   ));
 }
