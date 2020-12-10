@@ -13,7 +13,7 @@
                     array (
                         'taxonomy' => 'departments',
                         'field' => 'slug',
-                        'terms' => 'udviklingsafdeling',
+                        'terms' => 'salgsafdeling',
                     )
                 ),
                 'post_type' => 'employees',
@@ -28,11 +28,10 @@
             
                 <!-- the loop -->
                 <?php while ( $the_query->have_posts() ) : $the_query->the_post(); ?>
-                    <?php $department = get_the_terms( the_post()->ID, 'departments' )[0]->name; ?>
+                    <?php $department = wp_get_post_terms($post->ID, 'departments'); ?>
 
                     <h2><?php the_title(); ?></h2>
-                    <h3><?= $department; ?></h3>
-                    <pre><?php // var_dump($terms); ?></pre>
+                    <h3><?= $department[0]->name; ?></h3>
                     <br>
                 <?php endwhile; ?>
                 <!-- end of the loop -->
