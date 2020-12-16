@@ -1,13 +1,34 @@
 <?php get_header(); ?>
     <div class="wrapper">
-        <h1>Hello World!</h1>
         <div class="employees-container container">
+        <h1>Hello World!</h1>
+        <?php
+            $departments = get_terms( array(
+                'taxonomy' => 'departments',
+                'hide_empty' => false,
+            ) );
+        ?>
+        <select class="px-5 py-3 mb-4" name="sort-department" id="sort-department">
+            <option <?=($_GET['department'] === "0" ? "selected" : ""); ?> value="0">Alle afdelinger</option>
+            <?php 
+                foreach ($departments as $department) {
+                    $index++;
+                    echo "<option " . ($_GET['department'] === $department->slug ? 'selected' : '') . " value='$department->slug'>$department->name</option>\n";
+                }
+            ?>
+        </select>
             <?php
-                $terms = get_terms( array(
-                    'taxonomy' => 'departments',
-                    'hide_empty' => false,
-                ) );
-                
+
+                if ($_GET['department']) { 
+                    $terms[0]->slug = $_GET['department'];
+                    $terms[0]->name = $_GET['department'];
+                } else {
+                    $terms = get_terms( array(
+                        'taxonomy' => 'departments',
+                        'hide_empty' => false,
+                    ) );
+                }
+
                 foreach ($terms as $term) {            
                     // the query
                     $args = array( 
@@ -24,9 +45,6 @@
                     $the_query = new WP_Query( $args );
             ?>            
                 <?php if ( $the_query->have_posts() ) : ?>
-                    <!-- <pre>
-                        <?php //var_dump($terms); ?>
-                    </pre> -->
                     <div class="department-section mb-5">
                         <!-- the loop -->
                         <div class="department-card bg-success text-white p-4">
@@ -75,4 +93,11 @@
             <?php } ?>
         </div>
     </div>
+    <script>
+        jQuery('#sort-department').change(function(){
+            var url = new URL(window.location.href);
+            url.searchParams.set('department',this.value);
+            window.location.href = url.href;
+        });
+    </script>
 <?php get_footer(); ?>
