@@ -33,4 +33,54 @@
     .department-card {
         grid-column: span 3;
     }
+
+    .employee-container {
+
+        .employee-info {
+            bottom: 0;
+            display: flex;
+            align-items: flex-end;
+
+            a {
+                display: none;
+            }
+
+            .info-overlay {
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-end;
+
+                label {
+                    right: 0;
+                    cursor: pointer;
+                    align-self: flex-end;
+                    &::before {
+                        content: "^";
+                    }
+                    &:hover {
+                        color: rgb(22, 182, 22);
+                    }
+                }
+            }
+
+            input[type=checkbox]:checked {
+                & ~ .info-overlay {
+                    background: rgba(0,0,0,0.7);
+
+                    label {
+                        &::before {
+                            content: "X";
+                        }
+                    }
+
+                    .info-wrapper {
+                        a {
+                            display: inline-block;
+                        }
+                    }
+                }
+            }
+
+        }
+    }
 }

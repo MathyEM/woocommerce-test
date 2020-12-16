@@ -7183,3 +7183,27 @@ a.text-dark:hover, a.text-dark:focus {
   grid-gap: 24px; }
   .department-section .department-card {
     grid-column: span 3; }
+  .department-section .employee-container .employee-info {
+    bottom: 0;
+    display: flex;
+    align-items: flex-end; }
+    .department-section .employee-container .employee-info a {
+      display: none; }
+    .department-section .employee-container .employee-info .info-overlay {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end; }
+      .department-section .employee-container .employee-info .info-overlay label {
+        right: 0;
+        cursor: pointer;
+        align-self: flex-end; }
+        .department-section .employee-container .employee-info .info-overlay label::before {
+          content: "^"; }
+        .department-section .employee-container .employee-info .info-overlay label:hover {
+          color: #16b616; }
+    .department-section .employee-container .employee-info input[type=checkbox]:checked ~ .info-overlay {
+      background: rgba(0, 0, 0, 0.7); }
+      .department-section .employee-container .employee-info input[type=checkbox]:checked ~ .info-overlay label::before {
+        content: "X"; }
+      .department-section .employee-container .employee-info input[type=checkbox]:checked ~ .info-overlay .info-wrapper a {
+        display: inline-block; }
