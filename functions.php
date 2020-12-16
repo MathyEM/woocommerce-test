@@ -60,6 +60,8 @@ function create_departments_taxonomy() {
   ));
 }
 
+
+//https://premium.wpmudev.org/blog/company-info-global-variables/
 /*===================================================================================
 * Add global options
 * =================================================================================*/

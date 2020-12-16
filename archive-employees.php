@@ -1,5 +1,5 @@
 <?php get_header(); ?>
-    <div class="container">
+    <div class="wrapper">
         <h1>Hello World!</h1>
         <div class="employees-container container">
             <?php
@@ -27,10 +27,22 @@
                     <!-- <pre>
                         <?php //var_dump($terms); ?>
                     </pre> -->
-                    <div class="row gy-5 gx-5">
+                    <div class="department-section">
                         <!-- the loop -->
-                        <div class="department-card p-2 bg-success col-12 col-md-12 col-lg-6">
-                            <h2><?=$term->name?></h2>
+                        <div class="department-card bg-success text-white p-5">
+                            <div class="row">
+                                <div class="pb-5 col-12">
+                                    <h2><?=$term->name;?></h2>
+                                </div>
+                                <div class="col-6">
+                                    <h3 class="font-weight-normal"><?php echo get_option('business_name');?></h3>
+                                    <h3 class="font-weight-normal"><?php echo get_option('street_address');?></h3>
+                                    <h3 class="font-weight-normal"><?php echo get_option('city');?></h3>
+                                </div>
+                                <div class="col-6">
+                                    <h3 class="font-weight-normal"><?php echo get_option('support_phone');?></h3>
+                                </div>
+                            </div>
                         </div>
                         <?php while ( $the_query->have_posts() ) : $the_query->the_post(); ?>
                             <?php
@@ -39,8 +51,8 @@
                                 $tel_no = get_post_meta($post->ID, 'employee_tel')[0];
                             
                             ?>
-                            <div class="employee-container p-2 col-6 col-md-4 col-lg-2">
-                                <?php the_post_thumbnail('thumbnail'); ?>
+                            <div class="employee-container">
+                                <?php the_post_thumbnail('medium'); ?>
                                 <h2><?php the_title(); ?></h2>
                                 <h3><?=$department[0]->name;?></h3>
                                 <h4><?=$job_title;?></h4>

@@ -14,3 +14,23 @@
 
 @import '../node_modules/bootstrap/scss/bootstrap.scss';
 
+.emulated-flex-gap-12 {
+    display: inline-flex;
+    flex-wrap: wrap;
+    margin: -12px 0 0 -12px;
+    width: calc(100% + 12px);
+
+    & > * {
+        margin: 12px 0 0 12px;
+    }
+}
+
+.department-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 3fr));
+    grid-gap: 24px;
+
+    .department-card {
+        grid-column: span 3;
+    }
+}
