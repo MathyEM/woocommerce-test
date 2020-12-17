@@ -1,22 +1,24 @@
 <?php get_header(); ?>
     <div class="wrapper">
         <div class="employees-container container">
-        <h1>Hello World!</h1>
-        <?php
-            $departments = get_terms( array(
-                'taxonomy' => 'departments',
-                'hide_empty' => false,
-            ) );
-        ?>
-        <select class="px-5 py-3 mb-4" name="sort-department" id="sort-department">
-            <option <?=($_GET['department'] === "0" ? "selected" : ""); ?> value="0">Alle afdelinger</option>
-            <?php 
-                foreach ($departments as $department) {
-                    $index++;
-                    echo "<option " . ($_GET['department'] === $department->slug ? 'selected' : '') . " value='$department->slug'>$department->name</option>\n";
-                }
-            ?>
-        </select>
+            <div class="employees-header">
+                <h1 class="m-0">Hello World!</h1>
+                <?php
+                    $departments = get_terms( array(
+                        'taxonomy' => 'departments',
+                        'hide_empty' => false,
+                    ) );
+                ?>
+                <select class="px-5 py-3 mb-4" name="sort-department" id="sort-department">
+                    <option <?=($_GET['department'] === "0" ? "selected" : ""); ?> value="0">Alle afdelinger</option>
+                    <?php //generate department options based on defined taxonomy terms
+                        foreach ($departments as $department) {
+                            $index++;
+                            echo "<option " . ($_GET['department'] === $department->slug ? 'selected' : '') . " value='$department->slug'>$department->name</option>\n";
+                        }
+                    ?>
+                </select>
+            </div>
             <?php
 
                 if ($_GET['department']) { 

@@ -25,10 +25,29 @@
     }
 }
 
-.department-section {
+@mixin employee-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(150px, 3fr));
     grid-gap: 24px;
+}
+
+.employees-header {
+    @include employee-grid;
+
+    h1 {
+
+    }
+
+    select {
+        grid-column: -1/-3;
+        border-radius: 0;
+        border: none;
+        background: #c0c0c0;
+    }
+}
+
+.department-section {
+    @include employee-grid;
 
     .department-card {
         grid-column: span 3;
