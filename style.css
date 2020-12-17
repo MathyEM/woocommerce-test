@@ -17,6 +17,7 @@
  * Copyright 2011-2020 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
+@import url(node_modules/bootstrap-icons/font/bootstrap-icons.css);
 :root {
   --blue: #007bff;
   --indigo: #6610f2;
@@ -7207,13 +7208,14 @@ a.text-dark:hover, a.text-dark:focus {
         right: 0;
         cursor: pointer;
         align-self: flex-end; }
-        .department-section .employee-container .employee-info .info-overlay label::before {
-          content: "^"; }
         .department-section .employee-container .employee-info .info-overlay label:hover {
           color: #16b616; }
     .department-section .employee-container .employee-info input[type=checkbox]:checked ~ .info-overlay {
       background: rgba(0, 0, 0, 0.7); }
-      .department-section .employee-container .employee-info input[type=checkbox]:checked ~ .info-overlay label::before {
-        content: "X"; }
+      .department-section .employee-container .employee-info input[type=checkbox]:checked ~ .info-overlay label i::before {
+        content: "\f5ae";
+        font-size: 2.2rem;
+        margin-right: -0.4rem;
+        margin-bottom: -0.2rem; }
       .department-section .employee-container .employee-info input[type=checkbox]:checked ~ .info-overlay .info-wrapper a {
         display: inline-block; }
