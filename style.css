@@ -7219,3 +7219,8 @@ a.text-dark:hover, a.text-dark:focus {
         margin-bottom: -0.2rem; }
       .department-section .employee-container .employee-info input[type=checkbox]:checked ~ .info-overlay .info-wrapper a {
         display: inline-block; }
+
+.products-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 3fr));
+  grid-gap: 24px; }

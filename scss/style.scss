@@ -14,6 +14,7 @@
 
 @import '../node_modules/bootstrap/scss/bootstrap.scss';
 @import 'node_modules/bootstrap-icons/font/bootstrap-icons.css';
+@import 'mixins.scss';
 
 .emulated-flex-gap-12 {
     display: inline-flex;
@@ -26,14 +27,8 @@
     }
 }
 
-@mixin employee-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 3fr));
-    grid-gap: 24px;
-}
-
 .employees-header {
-    @include employee-grid;
+    @include base-item-grid;
 
     h1 {
 
@@ -48,7 +43,7 @@
 }
 
 .department-section {
-    @include employee-grid;
+    @include base-item-grid;
 
     .department-card {
         grid-column: span 3;
@@ -103,4 +98,8 @@
 
         }
     }
+}
+
+.products-container {
+    @include base-item-grid;
 }
