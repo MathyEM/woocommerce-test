@@ -104,6 +104,8 @@
     @include base-item-grid;
 
     .product-container {
-
+        .btn.btn-success {
+            @extend .btn-success; //overwrite theme styling
+        }
     }
 }
