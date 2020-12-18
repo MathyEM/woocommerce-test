@@ -6,8 +6,15 @@
                 <?php
                     $args = array(
                         'post_type' => 'product',
-                        'posts_per_page' => 12
-                        );
+                        'posts_per_page' => 12,
+                        'meta_query' => array( //only get products on sale
+                            array(
+                                'key'     => '_sale_price',
+                                'value'   => 0,
+                                'compare' => '>'
+                            )
+                        )
+                    );
                     $loop = new WP_Query( $args );
                     if ( $loop->have_posts() ) {
                         while ( $loop->have_posts() ) : $loop->the_post();
