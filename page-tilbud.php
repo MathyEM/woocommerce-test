@@ -4,6 +4,17 @@
             <h1>Hello world!</h1>
             <div class="products-container">
                 <?php
+
+                    add_action( 'woocommerce_after_shop_loop_item_title', 'wc_add_long_description' );
+                    function wc_add_long_description() {
+                        global $product;
+
+                        ?>
+                            <span class="description">
+                                <?php echo apply_filters( 'the_content', $product->post->post_content ) ?>
+                            </span>
+                        <?php
+                    }
                     $args = array(
                         'post_type' => 'product',
                         'posts_per_page' => 12,
