@@ -2,8 +2,14 @@
     <div class="wrapper">
         <div class="container">
             <h1>Hello world!</h1>
+            <div class="orderby-container">
+                <?php
+                    
+                ?>
+            </div>
             <div class="products-container">
                 <?php
+
                     add_action( 'woocommerce_after_shop_loop_item_title', 'wc_add_long_description' );
                     function wc_add_long_description() {
                         global $product;

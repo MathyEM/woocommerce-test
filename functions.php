@@ -9,6 +9,11 @@ function my_theme_enqueue_styles() {
     );
 }
 
+function mytheme_add_woocommerce_support() {
+	add_theme_support( 'woocommerce' );
+}
+add_action( 'after_setup_theme', 'mytheme_add_woocommerce_support' );
+
 // Custom Post Type - Medarbejdere 
 //-- https://www.wpbeginner.com/wp-tutorials/how-to-create-custom-post-types-in-wordpress/
 //-- https://developer.wordpress.org/reference/functions/register_post_type/
