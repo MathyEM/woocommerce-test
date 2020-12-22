@@ -109,3 +109,34 @@
         }
     }
 }
+
+.order-filter-container {
+    margin: 20px auto;
+
+    ul.filter-categories {
+        padding: 0;
+        margin: 0;
+        list-style: none;
+        display: flex;
+        flex-wrap: wrap;
+    
+        li.filter-category {
+            display: inline-block;
+            margin-top: 0;
+            
+            &:first-child {
+                margin-left: 0;
+            }
+
+            label {
+                cursor: pointer;
+            }
+        }
+    }
+
+    input[type=submit] {
+        @extend .btn-success;
+        border-radius: 0.25rem;
+        font-size: 14px;
+    }
+}
