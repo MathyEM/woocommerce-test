@@ -1835,32 +1835,34 @@ fieldset:disabled a.btn {
     .show > .btn-secondary.dropdown-toggle:focus {
       box-shadow: 0 0 0 0.2rem rgba(130, 138, 145, 0.5); }
 
-.btn-success, .products-container .product-container .btn.btn-success {
+.btn-success, .products-container .product-container .btn.btn-success, .order-filter-container input[type=submit] {
   color: #fff;
   background-color: #28a745;
   border-color: #28a745; }
-  .btn-success:hover, .products-container .product-container .btn.btn-success:hover {
+  .btn-success:hover, .products-container .product-container .btn.btn-success:hover, .order-filter-container input:hover[type=submit] {
     color: #fff;
     background-color: #218838;
     border-color: #1e7e34; }
-  .btn-success:focus, .products-container .product-container .btn.btn-success:focus, .btn-success.focus, .products-container .product-container .focus.btn.btn-success {
+  .btn-success:focus, .products-container .product-container .btn.btn-success:focus, .order-filter-container input:focus[type=submit], .btn-success.focus, .products-container .product-container .focus.btn.btn-success, .order-filter-container input.focus[type=submit] {
     color: #fff;
     background-color: #218838;
     border-color: #1e7e34;
     box-shadow: 0 0 0 0.2rem rgba(72, 180, 97, 0.5); }
-  .btn-success.disabled, .products-container .product-container .disabled.btn.btn-success, .btn-success:disabled, .products-container .product-container .btn.btn-success:disabled {
+  .btn-success.disabled, .products-container .product-container .disabled.btn.btn-success, .order-filter-container input.disabled[type=submit], .btn-success:disabled, .products-container .product-container .btn.btn-success:disabled, .order-filter-container input:disabled[type=submit] {
     color: #fff;
     background-color: #28a745;
     border-color: #28a745; }
-  .btn-success:not(:disabled):not(.disabled):active, .btn-success:not(:disabled):not(.disabled).active,
+  .btn-success:not(:disabled):not(.disabled):active, .order-filter-container input:not(:disabled):not(.disabled):active[type=submit], .btn-success:not(:disabled):not(.disabled).active, .order-filter-container input:not(:disabled):not(.disabled).active[type=submit],
   .show > .btn-success.dropdown-toggle,
-  .products-container .product-container .show > .dropdown-toggle.btn.btn-success {
+  .products-container .product-container .show > .dropdown-toggle.btn.btn-success,
+  .order-filter-container .show > input.dropdown-toggle[type=submit] {
     color: #fff;
     background-color: #1e7e34;
     border-color: #1c7430; }
-    .btn-success:not(:disabled):not(.disabled):active:focus, .btn-success:not(:disabled):not(.disabled).active:focus,
+    .btn-success:not(:disabled):not(.disabled):active:focus, .order-filter-container input:not(:disabled):not(.disabled):active:focus[type=submit], .btn-success:not(:disabled):not(.disabled).active:focus, .order-filter-container input:not(:disabled):not(.disabled).active:focus[type=submit],
     .show > .btn-success.dropdown-toggle:focus,
-    .products-container .product-container .show > .dropdown-toggle.btn.btn-success:focus {
+    .products-container .product-container .show > .dropdown-toggle.btn.btn-success:focus,
+    .order-filter-container .show > input.dropdown-toggle:focus[type=submit] {
       box-shadow: 0 0 0 0.2rem rgba(72, 180, 97, 0.5); }
 
 .btn-info {
@@ -7226,3 +7228,22 @@ a.text-dark:hover, a.text-dark:focus {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(150px, 3fr));
   grid-gap: 24px; }
+
+.order-filter-container {
+  margin: 20px auto; }
+  .order-filter-container ul.filter-categories {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap; }
+    .order-filter-container ul.filter-categories li.filter-category {
+      display: inline-block;
+      margin-top: 0; }
+      .order-filter-container ul.filter-categories li.filter-category:first-child {
+        margin-left: 0; }
+      .order-filter-container ul.filter-categories li.filter-category label {
+        cursor: pointer; }
+  .order-filter-container input[type=submit] {
+    border-radius: 0.25rem;
+    font-size: 14px; }
