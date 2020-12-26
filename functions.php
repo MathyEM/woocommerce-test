@@ -185,7 +185,7 @@ function hide_sale_price(){
     global $post;
     $post_id = $post->ID;
 
-    if($post->post_type == $my_post_type && isRental($post_id) ){
+    if($post->post_type == $my_post_type && productHasCategory($post_id, "udlejning") ){
         echo '<pre style="color:green; margin-top:30px;z-index:10;">';
         echo get_stylesheet_directory_uri() . '/js/remove-sale-price.js';
         echo '</pre>';
@@ -199,14 +199,14 @@ function hide_sale_price(){
 }
 add_action('admin_head-post.php', 'hide_sale_price');
 
-function isRental($post_id) {
+function productHasCategory($post_id, $cat_slug) {
     $categories = wp_get_post_terms($post_id, 'product_cat');
     $cat_count = count( $categories );
 
     $index = 0;
 
     foreach ($categories as $category) {
-        if ($category->slug == "udlejning") {
+        if ($category->slug == $cat_slug) {
             return true;
         } else {
             if ($index == $cat_count-1) {
@@ -217,3 +217,36 @@ function isRental($post_id) {
         $index++;
     }
 }
+
+
+//Rental products data
+function wc_display_rental_prices() {
+    $daglig_pris = get_field( 'daglig_vejledende_pris' );
+    $daglig_pris_tilbud = get_field( 'daglig_vejledende_pris_tilbud' );
+
+    $ugentlig_pris = get_field( 'ugentlig_vejledende_pris' );
+    $ugentlig_pris_tilbud = get_field( 'ugentlig_vejledende_pris_tilbud' );
+
+    $maanedlig_pris = get_field( 'maanedlig_vejledende_pris' );
+    $maanedlig_pris_tilbud = get_field( 'maanedlig_vejledende_pris_tilbud' );
+
+    echo "<div class='rental-prices-container row'>";
+    echo "   <div class='col-4'>";
+    echo "        <h3>Vejledende pris pr. dag</h3>";
+    echo "        <p>$daglig_pris</p>";
+    echo "        <p>$daglig_pris_tilbud</p>";
+    echo "    </div>";
+    echo "    <div class='col-4'>";
+    echo "        <h3>Vejledende pris pr. uge</h3>";
+    echo "        <p>$ugentlig_pris</p>";
+    echo "        <p>$ugentlig_pris_tilbud</p>";
+    echo "    </div>";
+    echo "    <div class='col-4'>";
+    echo "        <h3>Vejledende pris pr. måned</h3>";
+    echo "        <p>$maanedlig_pris</p>";
+    echo "        <p>$maanedlig_pris_tilbud</p>";
+    echo "    </div>";
+    echo "</div>";
+
+}
+add_action( 'woocommerce_single_product_summary', 'wc_display_rental_prices', 11 );
