@@ -180,24 +180,20 @@ add_action("admin_menu", "add_custom_info_menu_item");
 
 
 //Fjern tilbudspris
-function hide_sale_price(){
+function disable_wc_price_fields(){
     $my_post_type = 'product';
     global $post;
     $post_id = $post->ID;
 
     if($post->post_type == $my_post_type && productHasCategory($post_id, "udlejning") ){
-        echo '<pre style="color:green; margin-top:30px;z-index:10;">';
-        echo get_stylesheet_directory_uri() . '/js/remove-sale-price.js';
-        echo '</pre>';
-
-        wp_register_script('remove_sale_price', 
-        get_stylesheet_directory_uri() . '/js/remove-sale-price.js', array('jquery'), true);
+        wp_register_script('disable_wc_price_fields', 
+        get_stylesheet_directory_uri() . '/js/disable-wc-price-fields.js', array('jquery'), true);
         
-        wp_enqueue_script('remove_sale_price');
+        wp_enqueue_script('disable_wc_price_fields');
     }
 
 }
-add_action('admin_head-post.php', 'hide_sale_price');
+add_action('admin_head-post.php', 'disable_wc_price_fields');
 
 function productHasCategory($post_id, $cat_slug) {
     $categories = wp_get_post_terms($post_id, 'product_cat');
