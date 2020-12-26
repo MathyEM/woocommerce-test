@@ -7247,3 +7247,9 @@ a.text-dark:hover, a.text-dark:focus {
   .order-filter-container input[type=submit] {
     border-radius: 0.25rem;
     font-size: 14px; }
+
+.rental-prices-container .line-through {
+  text-decoration: line-through; }
+
+.rental-prices-container p {
+  font-size: 1.8rem; }

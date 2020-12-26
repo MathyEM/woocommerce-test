@@ -221,32 +221,47 @@ function productHasCategory($post_id, $cat_slug) {
 
 //Rental products data
 function wc_display_rental_prices() {
+    function set_price_class($sale_price) {
+        $classes = "";
+        if (!$sale_price) {
+            $classes .= "";
+        } else {
+            $classes .= "line-through";
+        }
+
+        return $classes;
+    }
+
+    $currency = "kr.";
+
     $daglig_pris = get_field( 'daglig_vejledende_pris' );
     $daglig_pris_tilbud = get_field( 'daglig_vejledende_pris_tilbud' );
+    $daglig_pris_class = set_price_class($daglig_pris_tilbud);
 
     $ugentlig_pris = get_field( 'ugentlig_vejledende_pris' );
     $ugentlig_pris_tilbud = get_field( 'ugentlig_vejledende_pris_tilbud' );
+    $ugentlig_pris_class = set_price_class($ugentlig_pris_tilbud);
 
     $maanedlig_pris = get_field( 'maanedlig_vejledende_pris' );
     $maanedlig_pris_tilbud = get_field( 'maanedlig_vejledende_pris_tilbud' );
+    $maanedlig_pris_class = set_price_class($maanedlig_pris_tilbud);
 
     echo "<div class='rental-prices-container row'>";
     echo "   <div class='col-4'>";
     echo "        <h3>Vejledende pris pr. dag</h3>";
-    echo "        <p>$daglig_pris</p>";
-    echo "        <p>$daglig_pris_tilbud</p>";
+    echo "        <p class='$daglig_pris_class'>$daglig_pris$currency</p>";
+    echo "        <p>$daglig_pris_tilbud$currency</p>";
     echo "    </div>";
     echo "    <div class='col-4'>";
     echo "        <h3>Vejledende pris pr. uge</h3>";
-    echo "        <p>$ugentlig_pris</p>";
-    echo "        <p>$ugentlig_pris_tilbud</p>";
+    echo "        <p class='$ugentlig_pris_class'>$ugentlig_pris$currency</p>";
+    echo "        <p>$ugentlig_pris_tilbud$currency</p>";
     echo "    </div>";
     echo "    <div class='col-4'>";
     echo "        <h3>Vejledende pris pr. måned</h3>";
-    echo "        <p>$maanedlig_pris</p>";
-    echo "        <p>$maanedlig_pris_tilbud</p>";
+    echo "        <p class='$maanedlig_pris_class'>$maanedlig_pris$currency</p>";
+    echo "        <p>$maanedlig_pris_tilbud$currency</p>";
     echo "    </div>";
     echo "</div>";
-
 }
 add_action( 'woocommerce_single_product_summary', 'wc_display_rental_prices', 11 );
