@@ -40,6 +40,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     
     $product_categories = get_terms( 'product_cat', $cat_args );
     
+<<<<<<< HEAD
     if( !empty($product_categories) && is_page_template( 'tilbud.php' ) ){
         echo '
         <ul class="filter-categories mt-3">';
@@ -50,6 +51,14 @@ if ( ! defined( 'ABSPATH' ) ) {
                     } else {
                         $checked = "";
                     }
+=======
+    if( !empty($product_categories) ){
+        echo '
+        <ul class="filter-categories mt-3">';
+            foreach ($product_categories as $key => $category) {
+                if ( $_GET['category-'.$category->slug] !== "0" ) {
+                    $checked = "checked=checked";
+>>>>>>> 4e2911962f32d15f4b00d3ee6d1318897e6fd659
                 } else {
                     $checked = "";
                 }
