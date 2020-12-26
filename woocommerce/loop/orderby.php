@@ -44,8 +44,12 @@ if ( ! defined( 'ABSPATH' ) ) {
         echo '
         <ul class="filter-categories mt-3">';
             foreach ($product_categories as $key => $category) {
-                if ( $_GET['category-'.$category->slug] !== "0" ) {
-                    $checked = "checked=checked";
+                if ( isset( $_GET['category-'.$category->slug] ) ) {
+                    if ( $_GET['category-'.$category->slug] !== "0" ) {
+                        $checked = "checked=checked";
+                    } else {
+                        $checked = "";
+                    }
                 } else {
                     $checked = "";
                 }
