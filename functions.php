@@ -198,7 +198,6 @@ add_action('admin_head-post.php', 'disable_wc_price_fields');
 function productHasCategory($post_id, $cat_slug) {
     $categories = wp_get_post_terms($post_id, 'product_cat');
     $cat_count = count( $categories );
-
     $index = 0;
 
     foreach ($categories as $category) {
@@ -215,49 +214,89 @@ function productHasCategory($post_id, $cat_slug) {
 }
 
 
-//Rental products data
-function wc_display_rental_prices() {
-    function set_price_class($sale_price) {
-        $classes = "";
-        if (!$sale_price) {
-            $classes .= "";
-        } else {
-            $classes .= "line-through";
-        }
-
-        return $classes;
+//Display rental products' ACF data
+function wc_custom_rental_page() {
+    if( !productHasCategory(get_the_id(), "udlejning") ) {
+        return;
     }
 
-    $currency = "kr.";
+    function wc_display_rental_prices() {
+        function set_price_class($sale_price) {
+            $classes = "";
+            if (!$sale_price) {
+                $classes .= "";
+            } else {
+                $classes .= "line-through";
+            }
 
-    $daglig_pris = get_field( 'daglig_vejledende_pris' );
-    $daglig_pris_tilbud = get_field( 'daglig_vejledende_pris_tilbud' );
-    $daglig_pris_class = set_price_class($daglig_pris_tilbud);
+            return $classes;
+        }
 
-    $ugentlig_pris = get_field( 'ugentlig_vejledende_pris' );
-    $ugentlig_pris_tilbud = get_field( 'ugentlig_vejledende_pris_tilbud' );
-    $ugentlig_pris_class = set_price_class($ugentlig_pris_tilbud);
+        $currency = "kr.";
 
-    $maanedlig_pris = get_field( 'maanedlig_vejledende_pris' );
-    $maanedlig_pris_tilbud = get_field( 'maanedlig_vejledende_pris_tilbud' );
-    $maanedlig_pris_class = set_price_class($maanedlig_pris_tilbud);
+        $daglig_pris = get_field( 'daglig_vejledende_pris' );
+        $daglig_pris_tilbud = get_field( 'daglig_vejledende_pris_tilbud' );
+        $daglig_pris_class = set_price_class($daglig_pris_tilbud);
 
-    echo "<div class='rental-prices-container row'>";
-    echo "   <div class='col-4'>";
-    echo "        <h3>Vejledende pris pr. dag</h3>";
-    echo "        <p class='$daglig_pris_class'>$daglig_pris$currency</p>";
-    echo "        <p>$daglig_pris_tilbud$currency</p>";
-    echo "    </div>";
-    echo "    <div class='col-4'>";
-    echo "        <h3>Vejledende pris pr. uge</h3>";
-    echo "        <p class='$ugentlig_pris_class'>$ugentlig_pris$currency</p>";
-    echo "        <p>$ugentlig_pris_tilbud$currency</p>";
-    echo "    </div>";
-    echo "    <div class='col-4'>";
-    echo "        <h3>Vejledende pris pr. måned</h3>";
-    echo "        <p class='$maanedlig_pris_class'>$maanedlig_pris$currency</p>";
-    echo "        <p>$maanedlig_pris_tilbud$currency</p>";
-    echo "    </div>";
-    echo "</div>";
+        $ugentlig_pris = get_field( 'ugentlig_vejledende_pris' );
+        $ugentlig_pris_tilbud = get_field( 'ugentlig_vejledende_pris_tilbud' );
+        $ugentlig_pris_class = set_price_class($ugentlig_pris_tilbud);
+
+        $maanedlig_pris = get_field( 'maanedlig_vejledende_pris' );
+        $maanedlig_pris_tilbud = get_field( 'maanedlig_vejledende_pris_tilbud' );
+        $maanedlig_pris_class = set_price_class($maanedlig_pris_tilbud);
+
+        echo "<div class='rental-prices-container row'>";
+        echo "   <div class='col-4'>";
+        echo "        <h3>Vejledende pris pr. dag</h3>";
+        echo "        <p class='$daglig_pris_class'>$daglig_pris$currency</p>";
+        echo "        <p>$daglig_pris_tilbud$currency</p>";
+        echo "    </div>";
+        echo "    <div class='col-4'>";
+        echo "        <h3>Vejledende pris pr. uge</h3>";
+        echo "        <p class='$ugentlig_pris_class'>$ugentlig_pris$currency</p>";
+        echo "        <p>$ugentlig_pris_tilbud$currency</p>";
+        echo "    </div>";
+        echo "    <div class='col-4'>";
+        echo "        <h3>Vejledende pris pr. måned</h3>";
+        echo "        <p class='$maanedlig_pris_class'>$maanedlig_pris$currency</p>";
+        echo "        <p>$maanedlig_pris_tilbud$currency</p>";
+        echo "    </div>";
+        echo "</div>";
+    }
+    add_action( 'woocommerce_single_product_summary', 'wc_display_rental_prices', 11 );
+
+
+    //Display "Send rental request"-section
+    function wc_rental_request() {
+        echo '<form id="request-form" method="post" action="' . admin_url('admin-ajax.php') . '">';
+        wp_nonce_field('rental_request','rental-request-nonce');
+        echo '    <input name="action" value="rental_request" type="hidden">';
+        echo '    <input class="mt-5" type="email" name="email" id="email" placeholder="Indtast email*" required>';
+        echo '    <input class="my-3" type="tel" name="phone" id="phone" placeholder="Indtast telefonnummer*" required>';
+        echo '    <input type="submit" value="Send forespørgsel">';
+        echo '</form>';
+        echo '<div id="rental-response" class="rental-response"></div>';
+    }
+    add_action( 'woocommerce_single_product_summary', 'wc_rental_request', 12 );
+
+    //enqueue ajax script
+    wp_register_script( "rental_request", get_stylesheet_directory_uri() . '/js/rental_request.js', array('jquery') );
+    wp_localize_script( 'rental_request', 'myAjax', array( 'ajaxurl' => admin_url( 'admin-ajax.php' )));        
+
+    wp_enqueue_script( 'jquery' );
+    wp_enqueue_script( 'rental_request' );
 }
-add_action( 'woocommerce_single_product_summary', 'wc_display_rental_prices', 11 );
+add_action('woocommerce_before_main_content', 'wc_custom_rental_page');
+
+
+//process rental request
+function rental_request() {
+    $data = $_POST['something'];
+    $data['type'] = "success";
+    $result = json_encode($data);
+    echo $result;
+    die();
+}
+add_action('wp_ajax_rental_request', 'rental_request');
+add_action('wp_ajax_nopriv_rental_request', 'rental_request');
