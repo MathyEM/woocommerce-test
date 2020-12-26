@@ -177,3 +177,43 @@ function add_custom_info_menu_item(){
 }
 
 add_action("admin_menu", "add_custom_info_menu_item");
+
+
+//Fjern tilbudspris
+function hide_sale_price(){
+    $my_post_type = 'product';
+    global $post;
+    $post_id = $post->ID;
+
+    if($post->post_type == $my_post_type && isRental($post_id) ){
+        echo '<pre style="color:green; margin-top:30px;z-index:10;">';
+        echo get_stylesheet_directory_uri() . '/js/remove-sale-price.js';
+        echo '</pre>';
+
+        wp_register_script('remove_sale_price', 
+        get_stylesheet_directory_uri() . '/js/remove-sale-price.js', array('jquery'), true);
+        
+        wp_enqueue_script('remove_sale_price');
+    }
+
+}
+add_action('admin_head-post.php', 'hide_sale_price');
+
+function isRental($post_id) {
+    $categories = wp_get_post_terms($post_id, 'product_cat');
+    $cat_count = count( $categories );
+
+    $index = 0;
+
+    foreach ($categories as $category) {
+        if ($category->slug == "udlejning") {
+            return true;
+        } else {
+            if ($index == $cat_count-1) {
+                return false;
+            }
+            continue;
+        }
+        $index++;
+    }
+}
