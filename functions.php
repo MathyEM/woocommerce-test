@@ -221,7 +221,7 @@ function wc_custom_rental_page() {
     }
 
     function wc_display_rental_prices() {
-        function set_price_class($sale_price) {
+        function get_price_class($sale_price) {
             $classes = "";
             if (!$sale_price) {
                 $classes .= "";
@@ -232,20 +232,20 @@ function wc_custom_rental_page() {
             return $classes;
         }
 
-        $currency = "kr.";
-
+        
         $daglig_pris = get_field( 'daglig_vejledende_pris' );
         $daglig_pris_tilbud = get_field( 'daglig_vejledende_pris_tilbud' );
-        $daglig_pris_class = set_price_class($daglig_pris_tilbud);
-
+        $daglig_pris_class = get_price_class($daglig_pris_tilbud);
+        
         $ugentlig_pris = get_field( 'ugentlig_vejledende_pris' );
         $ugentlig_pris_tilbud = get_field( 'ugentlig_vejledende_pris_tilbud' );
-        $ugentlig_pris_class = set_price_class($ugentlig_pris_tilbud);
-
+        $ugentlig_pris_class = get_price_class($ugentlig_pris_tilbud);
+        
         $maanedlig_pris = get_field( 'maanedlig_vejledende_pris' );
         $maanedlig_pris_tilbud = get_field( 'maanedlig_vejledende_pris_tilbud' );
-        $maanedlig_pris_class = set_price_class($maanedlig_pris_tilbud);
-
+        $maanedlig_pris_class = get_price_class($maanedlig_pris_tilbud);
+        $currency = "kr.";
+        
         echo "<div class='rental-prices-container row'>";
         echo "   <div class='col-4'>";
         echo "        <h3>Vejledende pris pr. dag</h3>";
@@ -270,13 +270,12 @@ function wc_custom_rental_page() {
     //Display "Send rental request"-section
     function wc_rental_request() {
         echo '<form id="request-form" method="post" action="' . admin_url('admin-ajax.php') . '">';
-        wp_nonce_field('rental_request','rental-request-nonce');
-        echo '    <input name="action" value="rental_request" type="hidden">';
+        echo '    <input name="post-id" id="post-id" value="' . get_the_id() . '" type="hidden">';
         echo '    <input class="mt-5" type="email" name="email" id="email" placeholder="Indtast email*" required>';
         echo '    <input class="my-3" type="tel" name="phone" id="phone" placeholder="Indtast telefonnummer*" required>';
-        echo '    <input type="submit" value="Send forespørgsel">';
+        echo '    <input class="btn btn-success" type="submit" value="Send forespørgsel">';
         echo '</form>';
-        echo '<div id="rental-response" class="rental-response"></div>';
+        echo '<div id="rental-response" class="rental-response mt-5"></div>';
     }
     add_action( 'woocommerce_single_product_summary', 'wc_rental_request', 12 );
 
@@ -292,8 +291,28 @@ add_action('woocommerce_before_main_content', 'wc_custom_rental_page');
 
 //process rental request
 function rental_request() {
-    $data = $_POST['something'];
-    $data['type'] = "success";
+    $email = $_POST['email'];
+    $phone = $_POST['phone'];
+    $post_id = $_POST['post_id'];
+
+    $daglig_pris = get_field( 'daglig_vejledende_pris', $post_id );
+    $daglig_pris_tilbud = get_field( 'daglig_vejledende_pris_tilbud', $post_id );
+    
+    $ugentlig_pris = get_field( 'ugentlig_vejledende_pris', $post_id );
+    $ugentlig_pris_tilbud = get_field( 'ugentlig_vejledende_pris_tilbud', $post_id );
+    
+    $maanedlig_pris = get_field( 'maanedlig_vejledende_pris', $post_id );
+    $maanedlig_pris_tilbud = get_field( 'maanedlig_vejledende_pris_tilbud', $post_id );
+
+    $data['day_price'] = ($daglig_pris_tilbud !== "") ? $daglig_pris_tilbud : $daglig_pris;
+    $data['week_price'] = ($ugentlig_pris_tilbud !== "") ? $ugentlig_pris_tilbud : $ugentlig_pris;
+    $data['month_price'] = ($maanedlig_pris_tilbud !== "") ? $maanedlig_pris_tilbud : $maanedlig_pris;
+
+    $data['product_name'] = get_the_title($post_id);
+
+    $categories = wp_get_post_terms($post_id, 'product_cat');
+    $data['product_cat'] = $categories[0]->name;
+
     $result = json_encode($data);
     echo $result;
     die();

@@ -102,12 +102,10 @@
 
 .products-container {
     @include base-item-grid;
+}
 
-    .product-container {
-        .btn.btn-success {
-            @extend .btn-success; //overwrite theme styling
-        }
-    }
+.btn.btn-success {
+    @extend .btn-success; //overwrite theme styling
 }
 
 .order-filter-container {
@@ -148,5 +146,16 @@
 
     p {
         font-size: 1.8rem;
+    }
+}
+
+.rental-response {
+    p, li {
+        font-size: 1.5rem;
+    }
+
+    ul {
+        list-style: none;
+        margin: 0;
     }
 }

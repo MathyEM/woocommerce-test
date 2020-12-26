@@ -1835,33 +1835,31 @@ fieldset:disabled a.btn {
     .show > .btn-secondary.dropdown-toggle:focus {
       box-shadow: 0 0 0 0.2rem rgba(130, 138, 145, 0.5); }
 
-.btn-success, .products-container .product-container .btn.btn-success, .order-filter-container input[type=submit] {
+.btn-success, .btn.btn-success, .order-filter-container input[type=submit] {
   color: #fff;
   background-color: #28a745;
   border-color: #28a745; }
-  .btn-success:hover, .products-container .product-container .btn.btn-success:hover, .order-filter-container input:hover[type=submit] {
+  .btn-success:hover, .order-filter-container input:hover[type=submit] {
     color: #fff;
     background-color: #218838;
     border-color: #1e7e34; }
-  .btn-success:focus, .products-container .product-container .btn.btn-success:focus, .order-filter-container input:focus[type=submit], .btn-success.focus, .products-container .product-container .focus.btn.btn-success, .order-filter-container input.focus[type=submit] {
+  .btn-success:focus, .order-filter-container input:focus[type=submit], .btn-success.focus, .order-filter-container input.focus[type=submit] {
     color: #fff;
     background-color: #218838;
     border-color: #1e7e34;
     box-shadow: 0 0 0 0.2rem rgba(72, 180, 97, 0.5); }
-  .btn-success.disabled, .products-container .product-container .disabled.btn.btn-success, .order-filter-container input.disabled[type=submit], .btn-success:disabled, .products-container .product-container .btn.btn-success:disabled, .order-filter-container input:disabled[type=submit] {
+  .btn-success.disabled, .order-filter-container input.disabled[type=submit], .btn-success:disabled, .order-filter-container input:disabled[type=submit] {
     color: #fff;
     background-color: #28a745;
     border-color: #28a745; }
   .btn-success:not(:disabled):not(.disabled):active, .order-filter-container input:not(:disabled):not(.disabled):active[type=submit], .btn-success:not(:disabled):not(.disabled).active, .order-filter-container input:not(:disabled):not(.disabled).active[type=submit],
   .show > .btn-success.dropdown-toggle,
-  .products-container .product-container .show > .dropdown-toggle.btn.btn-success,
   .order-filter-container .show > input.dropdown-toggle[type=submit] {
     color: #fff;
     background-color: #1e7e34;
     border-color: #1c7430; }
     .btn-success:not(:disabled):not(.disabled):active:focus, .order-filter-container input:not(:disabled):not(.disabled):active:focus[type=submit], .btn-success:not(:disabled):not(.disabled).active:focus, .order-filter-container input:not(:disabled):not(.disabled).active:focus[type=submit],
     .show > .btn-success.dropdown-toggle:focus,
-    .products-container .product-container .show > .dropdown-toggle.btn.btn-success:focus,
     .order-filter-container .show > input.dropdown-toggle:focus[type=submit] {
       box-shadow: 0 0 0 0.2rem rgba(72, 180, 97, 0.5); }
 
@@ -7253,3 +7251,10 @@ a.text-dark:hover, a.text-dark:focus {
 
 .rental-prices-container p {
   font-size: 1.8rem; }
+
+.rental-response p, .rental-response li {
+  font-size: 1.5rem; }
+
+.rental-response ul {
+  list-style: none;
+  margin: 0; }
