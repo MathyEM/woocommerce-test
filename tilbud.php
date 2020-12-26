@@ -85,7 +85,7 @@ function wc_do_orderby( $get_orderby ) {
 
 function wc_do_filter_cat( $get_filter_cat ) {
     $get_keys = array_keys($get_filter_cat);
-    $get_keys_keys = preg_grep("/((category-)([a-zA-Z\S]+))/", $get_keys);
+    $get_keys_keys = preg_grep("/((category-)([a-zA-Z\S]+))/", $get_keys); //((category-)([a-zA-Z\S]+))
 
     $filtered_categories = [];
 
