@@ -40,7 +40,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     
     $product_categories = get_terms( 'product_cat', $cat_args );
     
-    if( !empty($product_categories) ){
+    if( !empty($product_categories) && is_page_template( 'tilbud.php' ) ){
         echo '
         <ul class="filter-categories mt-3">';
             foreach ($product_categories as $key => $category) {
