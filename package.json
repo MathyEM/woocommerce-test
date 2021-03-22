@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MathyEM/onlineplus-test.git"
+    "url": "git+https://github.com/MathyEM/woocommerce-test.git"
   },
   "author": "Mathias Eggert Marloth",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/MathyEM/onlineplus-test/issues"
+    "url": "https://github.com/MathyEM/woocommerce-test/issues"
   },
-  "homepage": "https://github.com/MathyEM/onlineplus-test#readme",
+  "homepage": "https://github.com/MathyEM/woocommerce-test#readme",
   "devDependencies": {
     "bootstrap-icons": "^1.2.1",
     "browser-sync": "^2.26.13",
